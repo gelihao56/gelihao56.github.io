@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>Windows To Go 安装指南 | Gelihao&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="Windows To Go 安装指南目录 什么是 Windows To Go？ 准备工作 方案一：使用 Rufus 安装（推荐） 方案二：使用 WTGA 工具安装 方案三：使用 dism 命令手动部署（高手向） 从 U 盘启动 常见问题与排错 优化建议   什么是 Windows To Go？Windows To Go（简称 WTG）是 Windows 8&#x2F;10 企业版提供的一项功能，允">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows To Go 安装指南">
+<meta property="og:url" content="http://www.auraluminous.top/Windows%20To%20Go%20%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/">
+<meta property="og:site_name" content="Gelihao&#39;s Blog">
+<meta property="og:description" content="Windows To Go 安装指南目录 什么是 Windows To Go？ 准备工作 方案一：使用 Rufus 安装（推荐） 方案二：使用 WTGA 工具安装 方案三：使用 dism 命令手动部署（高手向） 从 U 盘启动 常见问题与排错 优化建议   什么是 Windows To Go？Windows To Go（简称 WTG）是 Windows 8&#x2F;10 企业版提供的一项功能，允">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-05-17T07:09:37.000Z">
+<meta property="article:modified_time" content="2026-05-30T08:54:33.925Z">
+<meta property="article:author" content="5o2v7c">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Gelihao's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body>
+  
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>Gelihao's Blog </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=https://img.scdn.io/i/6a1a98e2ce1e9_1780127970.webp></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">5o2v7c </div>
+      <div class="dot"></div>
+      <div class="subtitle">构造之妙，真令人兴致盎然。 </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://space.bilibili.com/3493119098095665" title="哔哩哔哩"><i class="fa-brands fa-bilibili"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://quic.auraluminous.top" title="导航页"><i class="fa-solid fa-paper-plane"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+
+    
+      
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">归档</h3>
+      
+      
+        <a class="archive-link" href="/archives/2026/05 ">
+          May 2026 
+          <div class="archive-count">2 </div>
+        </a>
+      
+        <a class="archive-link" href="/archives/2023/04 ">
+          April 2023 
+          <div class="archive-count">1 </div>
+        </a>
+      
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">最新文章</h3>
+      <ul>
+        
+          <a class="recent-link" href="/hello-world/" title="Hello World" >
+            <div class="recent-link-text">
+              Hello World
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/Windows%20To%20Go%20%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/" title="Windows To Go 安装指南" >
+            <div class="recent-link-text">
+              Windows To Go 安装指南
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/My-New-Post/" title="My New Post" >
+            <div class="recent-link-text">
+              My New Post
+            </div>
+          </a>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-Windows To Go 安装指南" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        Windows To Go 安装指南
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2026-05-17T07:09:37.000Z" itemprop="datePublished">2026-05-17</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    未分类 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            2.6k 词 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h1 id="Windows-To-Go-安装指南"><a href="#Windows-To-Go-安装指南" class="headerlink" title="Windows To Go 安装指南"></a>Windows To Go 安装指南</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-windows-to-go">什么是 Windows To Go？</a></li>
+<li><a href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C">准备工作</a></li>
+<li><a href="#%E6%96%B9%E6%A1%88%E4%B8%80%E4%BD%BF%E7%94%A8-rufus-%E5%AE%89%E8%A3%85%E6%8E%A8%E8%8D%90">方案一：使用 Rufus 安装（推荐）</a></li>
+<li><a href="#%E6%96%B9%E6%A1%88%E4%BA%8C%E4%BD%BF%E7%94%A8-wtga-%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85">方案二：使用 WTGA 工具安装</a></li>
+<li><a href="#%E6%96%B9%E6%A1%88%E4%B8%89%E4%BD%BF%E7%94%A8-dism-%E5%91%BD%E4%BB%A4%E6%89%8B%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%AB%98%E6%89%8B%E5%90%91">方案三：使用 dism 命令手动部署（高手向）</a></li>
+<li><a href="#%E4%BB%8E-u-%E7%9B%98%E5%90%AF%E5%8A%A8">从 U 盘启动</a></li>
+<li><a href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E4%B8%8E%E6%8E%92%E9%94%99">常见问题与排错</a></li>
+<li><a href="#%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE">优化建议</a></li>
+</ol>
+<hr>
+<h2 id="什么是-Windows-To-Go？"><a href="#什么是-Windows-To-Go？" class="headerlink" title="什么是 Windows To Go？"></a>什么是 Windows To Go？</h2><p>Windows To Go（简称 WTG）是 Windows 8&#x2F;10 企业版提供的一项功能，允许你将完整的 Windows 系统安装在 USB 驱动器上，从而在任何支持 USB 启动的电脑上运行。它的核心优势：</p>
+<ul>
+<li><strong>随身携带</strong>：你的系统、应用、设置全部在 U 盘中</li>
+<li><strong>硬件无关</strong>：在不同电脑上启动时自动适配驱动</li>
+<li><strong>不影响宿主机</strong>：完全与主机系统隔离</li>
+<li><strong>性能接近本地</strong>：搭配高速 USB 3.0+ 固态 U 盘，体验流畅</li>
+</ul>
+<blockquote>
+<p>⚠ <strong>注意</strong>：微软在 Windows 10 版本 2004 及之后移除了原生 WTG 功能，但第三方工具依然可以完美实现。</p>
+</blockquote>
+<hr>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="硬件要求"><a href="#硬件要求" class="headerlink" title="硬件要求"></a>硬件要求</h3><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>最低要求</th>
+<th>推荐配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>U 盘 &#x2F; 移动硬盘</td>
+<td>32GB</td>
+<td>128GB+（建议使用固态 U 盘）</td>
+</tr>
+<tr>
+<td>接口标准</td>
+<td>USB 3.0</td>
+<td>USB 3.1 &#x2F; USB 4 &#x2F; Thunderbolt</td>
+</tr>
+<tr>
+<td>4K 随机读写</td>
+<td>—</td>
+<td>&gt; 20 MB&#x2F;s（必须，否则卡顿严重）</td>
+</tr>
+<tr>
+<td>宿主机内存</td>
+<td>4GB</td>
+<td>8GB+</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>强烈建议使用固态 U 盘</strong>。普通 U 盘的 4K 读写极差，会导致系统卡成幻灯片。</p>
+</blockquote>
+<h3 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h3><ul>
+<li>Windows 10&#x2F;11 ISO 镜像（可从 <a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/software-download">Microsoft 官网</a> 下载）</li>
+<li>以下工具三选一：</li>
+<li><strong>WTGA</strong>（Windows To Go Assistant，推荐，功能最全）</li>
+<li><strong>Rufus</strong>（轻量简单）</li>
+<li><strong>DISM</strong>（系统自带，新手不友好，不做演示）</li>
+</ul>
+<h3 id="重要提示"><a href="#重要提示" class="headerlink" title="重要提示"></a>重要提示</h3><blockquote>
+<p>⚠ 制作前请<strong>备份 U 盘数据</strong>！制作过程会格式化整个 U 盘。<br>⚠ 建议宿主机运行 Windows 8.1 及以上版本。<br>⚠ 若使用移动硬盘，确保盘上没有分区被占用。</p>
+</blockquote>
+<hr>
+<h2 id="方案一：使用-WTGA-工具安装（推荐）"><a href="#方案一：使用-WTGA-工具安装（推荐）" class="headerlink" title="方案一：使用 WTGA 工具安装（推荐）"></a>方案一：使用 WTGA 工具安装（推荐）</h2><p>WTGA（Windows To Go Assistant）是专门针对 WTG 的图形化工具，支持最多自定义选项。</p>
+<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><ul>
+<li>官网：<a target="_blank" rel="noopener" href="https://bbs.luobotou.org/thread-761-1-1.html">萝卜头IT论坛</a></li>
+<li>Github：<a target="_blank" rel="noopener" href="https://github.com/nkc3g4/wtg-assistant">nkc3g4&#x2F;wtg-assistant: Deploy Windows To Go on USB devices.</a></li>
+<li>下载得到 <code>wtga5620.zip</code></li>
+</ul>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li><p><strong>以管理员身份运行 WTGA</strong></p>
+</li>
+<li><p><strong>选择镜像</strong></p>
+<ul>
+<li>点击”选择镜像” → 选中你的 Windows ISO 文件</li>
+</ul>
+</li>
+<li><p><strong>选择 U 盘</strong></p>
+<ul>
+<li>在下方设备列表中选择目标 U 盘</li>
+</ul>
+</li>
+<li><p><strong>配置选项（示例）</strong></p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dos">☑ 传统模式（推荐）<br>☑ UEFI+GPT<br>☑ 屏蔽本机硬盘（强烈推荐！防止引导混乱）<br>☑ 无默认盘符<br>☑ <span class="hljs-built_in">Compact</span> OS（可节省约 <span class="hljs-number">4</span>~<span class="hljs-number">8</span>GB 空间）<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>点击”部署”</strong></p>
+</li>
+<li><p><strong>等待完成</strong></p>
+<ul>
+<li>进度条显示写入过程，约 10~20 分钟</li>
+<li>完成后会弹出提示</li>
+</ul>
+</li>
+</ol>
+<h3 id="与传统模式-vs-VHD-模式"><a href="#与传统模式-vs-VHD-模式" class="headerlink" title="与传统模式 vs VHD 模式"></a>与传统模式 vs VHD 模式</h3><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>传统模式</strong></td>
+<td>直接写入分区</td>
+<td>性能最好，推荐</td>
+</tr>
+<tr>
+<td><strong>VHD&#x2F;VHDX 模式</strong></td>
+<td>写入虚拟磁盘文件</td>
+<td>需要多系统共存时</td>
+</tr>
+<tr>
+<td><strong>VHDX 差分模式</strong></td>
+<td>基于父 VHDX 差分</td>
+<td>节省空间，适合测试</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="方案二：使用-Rufus-安装"><a href="#方案二：使用-Rufus-安装" class="headerlink" title="方案二：使用 Rufus 安装"></a>方案二：使用 Rufus 安装</h2><p><a target="_blank" rel="noopener" href="https://rufus.ie/zh_CN/">Rufus</a> 是一个轻量级的 U 盘启动盘制作工具，同样支持 Windows To Go。</p>
+<h3 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li><p><strong>下载并打开 Rufus</strong></p>
+<ul>
+<li>访问 <a target="_blank" rel="noopener" href="https://rufus.ie/">Rufus官网</a> 下载最新版（绿色版免安装）</li>
+<li>Github：<a target="_blank" rel="noopener" href="https://github.com/pbatard/rufus">pbatard&#x2F;rufus: The Reliable USB Formatting Utility</a></li>
+</ul>
+</li>
+<li><p><strong>插入 U 盘</strong>，Rufus 会自动识别</p>
+</li>
+<li><p><strong>配置参数（示例）</strong></p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs autoit">设备：选择你的 U 盘<br>引导类型：选择下载好的 Windows ISO 镜像<br>镜像选项：Windows <span class="hljs-keyword">To</span> Go（关键！）<br>分区类型：GPT（适用于 UEFI 启动）<br>目标系统：UEFI (非 CSM)<br>文件系统：NTFS<br>簇大小：<span class="hljs-number">4096</span>（默认）<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p><strong>点击”开始”</strong></p>
+</li>
+<li><p><strong>选择 Windows 版本</strong>（若有多个版本提示）</p>
+</li>
+<li><p><strong>确认格式化</strong> —— 等待写入完成（约 5~15 分钟，取决于 U 盘速度）</p>
+</li>
+<li><p><strong>完成</strong> —— 进度条走完即成功</p>
+</li>
+</ol>
+<h3 id="与传统模式-vs-VHD-模式-1"><a href="#与传统模式-vs-VHD-模式-1" class="headerlink" title="与传统模式 vs VHD 模式"></a>与传统模式 vs VHD 模式</h3><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>传统模式</strong></td>
+<td>直接写入分区</td>
+<td>性能最好，推荐</td>
+</tr>
+<tr>
+<td><strong>VHD&#x2F;VHDX 模式</strong></td>
+<td>写入虚拟磁盘文件</td>
+<td>需要多系统共存时</td>
+</tr>
+<tr>
+<td><strong>VHDX 差分模式</strong></td>
+<td>基于父 VHDX 差分</td>
+<td>节省空间，适合测试</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="从-U-盘启动"><a href="#从-U-盘启动" class="headerlink" title="从 U 盘启动"></a>从 U 盘启动</h2><h3 id="传统方法：选择启动项"><a href="#传统方法：选择启动项" class="headerlink" title="传统方法：选择启动项"></a>传统方法：选择启动项</h3><ol>
+<li><p>插入 WTG U 盘</p>
+</li>
+<li><p>重启电脑</p>
+</li>
+<li><p>按启动热键进入启动菜单：</p>
+<table>
+<thead>
+<tr>
+<th>品牌</th>
+<th>热键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>华硕 (ASUS)</td>
+<td>F8 &#x2F; Esc</td>
+</tr>
+<tr>
+<td>联想 (Lenovo)</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>戴尔 (Dell)</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>惠普 (HP)</td>
+<td>F9</td>
+</tr>
+<tr>
+<td>宏碁 (Acer)</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>可自行搜索查找</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>选择 U 盘（通常显示 U 盘品牌名，或带有 UEFI 前缀）</p>
+</li>
+</ol>
+<h3 id="修改-BIOS-启动顺序"><a href="#修改-BIOS-启动顺序" class="headerlink" title="修改 BIOS 启动顺序"></a>修改 BIOS 启动顺序</h3><p>如果经常使用 WTG，可以将 U 盘设为第一启动项：</p>
+<ol>
+<li>开机按 F2 &#x2F; Del &#x2F; Esc 进入 BIOS</li>
+<li>找到 <strong>Boot</strong> → <strong>Boot Priority</strong></li>
+<li>将 U 盘调整到第一位</li>
+<li>按 F10 保存退出</li>
+</ol>
+<h3 id="首次启动注意事项"><a href="#首次启动注意事项" class="headerlink" title="首次启动注意事项"></a>首次启动注意事项</h3><ul>
+<li><strong>第一次启动较慢</strong>：系统需要检测硬件、安装驱动、配置设置</li>
+<li><strong>会提示”准备就绪”</strong>：耐心等待，不要强制关机</li>
+<li><strong>可能需要重启 2~3 次</strong>：这是正常的驱动安装过程</li>
+</ul>
+<hr>
+<h2 id="常见问题与排错"><a href="#常见问题与排错" class="headerlink" title="常见问题与排错"></a>常见问题与排错</h2><h3 id="Q1-启动时卡在-Windows-Logo"><a href="#Q1-启动时卡在-Windows-Logo" class="headerlink" title="Q1: 启动时卡在 Windows Logo"></a>Q1: 启动时卡在 Windows Logo</h3><p><strong>原因</strong>：可能是 USB 控制器驱动问题或供电不足。</p>
+<p><strong>解决</strong>：</p>
+<ul>
+<li>插入 USB 3.0 接口</li>
+<li>台式机建议用后置接口</li>
+<li>笔记本电脑建议通电状态启动</li>
+<li>尝试在 BIOS 中关闭 XHCI Hand-off</li>
+</ul>
+<h3 id="Q2-启动后看不到本机硬盘"><a href="#Q2-启动后看不到本机硬盘" class="headerlink" title="Q2: 启动后看不到本机硬盘"></a>Q2: 启动后看不到本机硬盘</h3><p><strong>原因</strong>：正常现象！制作时勾选了”屏蔽本机硬盘”。</p>
+<p><strong>解决</strong>：</p>
+<ul>
+<li>如需要访问本机硬盘，可在磁盘管理中使磁盘联机</li>
+<li><strong>强烈建议保持屏蔽</strong>，防止引导记录互相干扰</li>
+</ul>
+<hr>
+<h2 id="优化建议"><a href="#优化建议" class="headerlink" title="优化建议"></a>优化建议</h2><h3 id="1-关闭休眠"><a href="#1-关闭休眠" class="headerlink" title="1. 关闭休眠"></a>1. 关闭休眠</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">powercfg /<span class="hljs-built_in">h</span> off<br></code></pre></td></tr></table></figure>
+<p>可节省 U 盘约等于内存大小的空间。</p>
+<h3 id="2-关闭-Superfetch-SysMain（可选）"><a href="#2-关闭-Superfetch-SysMain（可选）" class="headerlink" title="2. 关闭 Superfetch &#x2F; SysMain（可选）"></a>2. 关闭 Superfetch &#x2F; SysMain（可选）</h3><p><strong>通常不建议禁用</strong>，但以下情况可考虑：</p>
+<ul>
+<li><strong>内存 ≤ 4GB 的老旧设备</strong>：预读取可能加剧内存压力</li>
+<li><strong>使用 SSD 且内存充足</strong>：SSD 随机读取快，预读取收益降低</li>
+<li><strong>出现高磁盘占用问题</strong>：SysMain 服务偶尔会导致 100% 磁盘使用率</li>
+<li><strong>笔记本电脑省电需求</strong>：减少后台磁盘活动</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 以管理员运行</span><br><span class="hljs-built_in">sc</span> config SysMain <span class="hljs-built_in">start</span>=disabled<br><span class="hljs-built_in">sc</span> stop SysMain<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="3-使用-Compact-OS-节省空间"><a href="#3-使用-Compact-OS-节省空间" class="headerlink" title="3. 使用 Compact OS 节省空间"></a>3. 使用 Compact OS 节省空间</h3><p>如果制作时没有启用，进入系统后可运行：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">compact /compactos:always<br></code></pre></td></tr></table></figure>
+<p>可节省约 4~8GB 空间。</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>难度</th>
+<th>灵活性</th>
+<th>适合人群</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>WTGA</strong></td>
+<td>⭐⭐</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>最推荐，功能全面</td>
+</tr>
+<tr>
+<td><strong>Rufus</strong></td>
+<td>⭐</td>
+<td>⭐⭐</td>
+<td>快速制作、轻量简单</td>
+</tr>
+</tbody></table>
+<p><strong>推荐</strong>：首选 WTGA（功能最全），快速制作用 Rufus，折腾派用 DISM。</p>
+<p>无论哪种方案，核心要点是：</p>
+<ol>
+<li><strong>使用固态 U 盘</strong> —— 这是 WTG 体验好坏的决定性因素</li>
+<li><strong>UEFI + GPT</strong> —— 现代电脑的最佳兼容性组合</li>
+<li><strong>屏蔽本机硬盘</strong> —— 避免系统间互相干扰</li>
+</ol>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/hello-world/"
+      title="Hello World"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        Hello World
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/My-New-Post/"
+      title="My New Post"
+     >
+
+    <p class="title-text">
+      
+        My New Post
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2026 5o2v7c<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
